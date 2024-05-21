@@ -17,6 +17,7 @@ export function showHelp(info, highlight, warning) {
   info('        --pnpm            Use pnpm as the package manager');
   info('	--bun		  Use bun as the package manager');
   info('        --importAlias     Enable TS path aliases');
+  info('        --verbose         Show more info for debugging');
   info('    -v, --version         Version number');
   info('    -h, --help            Usage info');
   info('');

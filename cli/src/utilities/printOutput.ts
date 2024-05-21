@@ -91,8 +91,9 @@ export async function printOutput(
     await runSystemCommand({
       toolbox,
       command: `cd ${projectName} && ${packageManager} ${installCommand} --silent expo@latest`,
-      stdio: isNpm ? undefined : onlyErrors,
-      errorMessage: 'Error updating expo'
+      errorMessage: 'Error updating expo',
+      stdio: options.verbose ? onlyErrors : undefined
+      // stdio: isNpm ? undefined : onlyErrors,
     });
 
     s.stop('Latest version of Expo installed!');
@@ -104,7 +105,8 @@ export async function printOutput(
       // NOTE yarn dlx is a nightmare so we're using npx :)
       command: `cd ${projectName} && ${isYarn ? 'npx' : runnerType} expo@latest install --fix`,
       errorMessage: 'Error updating packages',
-      stdio: undefined
+      stdio: options.verbose ? onlyErrors : undefined
+      // stdio: isYarn || isNpm ? undefined : onlyErrors
     });
 
     s.stop('Packages updated!');
@@ -116,7 +118,8 @@ export async function printOutput(
       toolbox,
       command: `cd ${projectName} && ${runCommand} format`,
       errorMessage: 'Error formatting code',
-      stdio: undefined
+      stdio: options.verbose ? onlyErrors : undefined
+      // stdio: undefined
     });
 
     s.stop('Project files formatted!');
